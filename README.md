@@ -3,7 +3,10 @@ An API server which is use to sync high score with flip card games app
 
 ## Quick Start
 
-### Development
+> ### Allow firewall on your host server with port __9000__ first
+> ### Before Start please don't forget add your host server ip address to mongo altas cluster whitelist!!!
+
+### Development 👨‍💻
 
 Uses the default Flask development server.
 
@@ -17,7 +20,7 @@ Uses the default Flask development server.
 
     Test it out at [http://localhost:5000](http://localhost:5000). The "api" folder is mounted into the container and your code changes apply automatically.
 
-### Production
+### Production 🏗
 
 Uses gunicorn + nginx.
 
