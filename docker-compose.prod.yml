@@ -8,7 +8,14 @@ services:
     command: gunicorn --bind 0.0.0.0:5000 manage:app
     # volumes:
     #   - ./services/api/:/c/Users/Chayut/docker/flipcard/src/app"
-    ports:
-      - 5000:5000
+    expose:
+      - 5000
     env_file:
     - ./.env.prod
+
+  nginx:
+    build: ./services/nginx
+    ports:
+      - 9000:80
+    depends_on:
+      - api
