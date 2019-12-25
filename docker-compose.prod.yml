@@ -6,8 +6,6 @@ services:
       context: ./services/api
       dockerfile: linux.prod.Dockerfile
     command: gunicorn --bind 0.0.0.0:5000 manage:app
-    # volumes:
-    #   - ./services/api/:/c/Users/Chayut/docker/flipcard/src/app"
     expose:
       - 5000
     env_file:
