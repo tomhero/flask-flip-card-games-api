@@ -1,5 +1,8 @@
 FROM python:3.7.6-alpine
 
+# Label for this image
+LABEL maintainer="Chayut Ruksomya <chayut.191@gmail.com>"
+
 # set work directory
 WORKDIR /c/Users/Chayut/docker/flipcard/src/app
 
@@ -13,6 +16,7 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install --upgrade pip
 COPY ./requirements.txt /c/Users/Chayut/docker/flipcard/src/app/requirements.txt
 RUN pip install -r requirements.txt
+RUN pip install pymongo[srv]
 
 # copy project
 COPY . /c/Users/Chayut/docker/flipcard/src/app
