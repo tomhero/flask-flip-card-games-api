@@ -6,13 +6,13 @@ then put the timestamp before save to database
 """
 class HighScore:
 
-    __tablename__ = "high_score"
+    __collection__ = "high_score"
 
     def __init__(self, db):
         self.db = db
 
     def get_high_scores(self):
-        _scores = self.db[self.__tablename__].find()
+        _scores = self.db[self.__collection__].find()
 
         data = []
         item = {}
@@ -32,7 +32,7 @@ class HighScore:
             "globalHighscore": None,
             "achievedAt": None
         }
-        raw_result = self.db[self.__tablename__].find_one({"high_score": {"$exists": True}}, sort=[("high_score", 1)])
+        raw_result = self.db[self.__collection__].find_one({"high_score": {"$exists": True}}, sort=[("high_score", 1)])
         if raw_result != None:
             data = {
                     "id": str(raw_result["_id"]),
@@ -42,7 +42,7 @@ class HighScore:
         return data
 
     def get_highscore_by_id(self, id):
-        raw_result = self.db[self.__tablename__].find_one({ "_id": ObjectId(id) })
+        raw_result = self.db[self.__collection__].find_one({ "_id": ObjectId(id) })
         data = {
             "highscore": None,
             "achievedAt": None
@@ -60,4 +60,4 @@ class HighScore:
             "achieved_date": datetime.datetime.utcnow(),
             "high_score": new_score
         }
-        return self.db[self.__tablename__].insert_one(item)
+        return self.db[self.__collection__].insert_one(item)

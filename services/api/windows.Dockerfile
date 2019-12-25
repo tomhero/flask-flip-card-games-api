@@ -16,6 +16,7 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install --upgrade pip
 COPY ./requirements.txt /c/Users/Chayut/docker/flipcard/src/app/requirements.txt
 RUN pip install -r requirements.txt
+# because of connection for mongo altas
 RUN pip install pymongo[srv]
 
 # copy project

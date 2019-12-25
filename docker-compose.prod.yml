@@ -5,10 +5,10 @@ services:
     build:
       context: ./services/api
       dockerfile: windows.Dockerfile
-    command: python manage.py run -h 0.0.0.0
-    volumes:
-      - ./services/api/:/c/Users/Chayut/docker/flipcard/src/app"
+    command: gunicorn --bind 0.0.0.0:5000 manage:app
+    # volumes:
+    #   - ./services/api/:/c/Users/Chayut/docker/flipcard/src/app"
     ports:
       - 5000:5000
     env_file:
-      - ./.env.dev
+    - ./.env.prod

@@ -5,8 +5,8 @@ from project.model.high_score import HighScore
 app = Flask(__name__)
 app.config.from_object("project.config.Config")
 
-client = MongoClient(f"mongodb+srv://{app.config['MONGO_DATABASE_USER']}:{app.config['MONGO_DATABASE_PASS']}@{app.config['MONGO_DATABASE_HOST']}")
-db = client.flipcard
+client = MongoClient(app.config["PYMONGO_DATABASE_URI"])
+db = client[app.config["MONGO_DATABASE_NAME"]]
 
 high_score_model = HighScore(db)
 
