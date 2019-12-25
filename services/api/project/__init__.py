@@ -10,12 +10,14 @@ db = client[app.config["MONGO_DATABASE_NAME"]]
 
 high_score_model = HighScore(db)
 
+
 @app.route("/")
 def index():
     return jsonify(
         status=True,
         message="Welcome to the Dockerized Flask MongoDB app!"
     )
+
 
 @app.route("/api/v1/highscores")
 def get_all_score():
@@ -24,10 +26,12 @@ def get_all_score():
         scores=all_score
     )
 
+
 @app.route("/api/v1/highscore")
 def get_only_highest_score():
     score = high_score_model.get_the_highest_score()
     return jsonify(score)
+
 
 @app.route("/api/v1/highscore", methods=["POST"])
 def add_new_high_score():
@@ -40,7 +44,7 @@ def add_new_high_score():
     inserted_player_highscore = high_score_model.get_highscore_by_id(insert_result.inserted_id)
 
     is_break_the_record = False
-    if current_global_highscore["globalHighscore"] == None or request_data["playerHighscore"] < current_global_highscore["globalHighscore"]:
+    if current_global_highscore["globalHighscore"] is None or request_data["playerHighscore"] < current_global_highscore["globalHighscore"]:
         # NOTE : When player breaks the record!!
         is_break_the_record = True
         current_global_highscore["globalHighscore"] = request_data["playerHighscore"]

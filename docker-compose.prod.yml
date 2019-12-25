@@ -4,7 +4,7 @@ services:
   api:
     build:
       context: ./services/api
-      dockerfile: windows.Dockerfile
+      dockerfile: linux.prod.Dockerfile
     command: gunicorn --bind 0.0.0.0:5000 manage:app
     # volumes:
     #   - ./services/api/:/c/Users/Chayut/docker/flipcard/src/app"
