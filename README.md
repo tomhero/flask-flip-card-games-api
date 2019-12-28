@@ -4,7 +4,8 @@ An API server which is use to sync high score with flip card games app
 ## Quick Start
 
 > ### Allow firewall on your host server with port __9000__ first
-> ### Before Start please don't forget add your host server ip address to mongo altas cluster whitelist!!!
+> ### Before Start please don't forget to add your host server ip address to mongo altas cluster whitelist!!!
+> ### Generate API_KEY for flask server at https://www.uuidgenerator.net/
 
 ### Development 👨‍💻
 
@@ -32,3 +33,15 @@ Uses gunicorn + nginx.
     ```
 
     Test it out at [http://localhost:9000](http://localhost:9000). No mounted folders. To apply changes, the image must be re-built.
+
+### Clear Data
+
+You can also clear score in database.
+* After you have been spin docker container up:
+
+    ```sh
+    $ docker-compose -f docker-compose.prod.yml exec api python manage.py clear_data
+
+    # if development mode
+    $ docker-compose exec api python manage.py clear_data
+    ```

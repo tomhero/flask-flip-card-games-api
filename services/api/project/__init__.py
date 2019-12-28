@@ -11,6 +11,7 @@ client = MongoClient(app.config["PYMONGO_DATABASE_URI"])
 db = client[app.config["MONGO_DATABASE_NAME"]]
 
 high_score_model = HighScore(db)
+api_key = app.config["FLASK_API_KEY"]
 
 
 @app.route("/")
@@ -21,22 +22,30 @@ def index():
     )
 
 
-@app.route("/api/v1/highscores")
-def get_all_score():
+@app.route("/api/v1/highscores/<client_api_key>")
+def get_all_score(client_api_key):
+    if (not validate_api_key(api_key)):
+        return jsonify(status=False), 400
     all_score = high_score_model.get_high_scores()
     return jsonify(
+        status=True,
         scores=all_score
     )
 
 
-@app.route("/api/v1/highscore")
-def get_only_highest_score():
+@app.route("/api/v1/highscore/<client_api_key>")
+def get_only_highest_score(client_api_key):
+    if (not validate_api_key(api_key)):
+        return jsonify(status=False), 400
     score = high_score_model.get_the_highest_score()
+    score["status"] = True
     return jsonify(score)
 
 
-@app.route("/api/v1/highscore", methods=["POST"])
-def add_new_high_score():
+@app.route("/api/v1/highscore/<client_api_key>", methods=["POST"])
+def add_new_high_score(client_api_key):
+    if (not validate_api_key(api_key)):
+        return jsonify(status=False), 400
     request_data = request.get_json(force=True)
 
     current_global_highscore = high_score_model.get_the_highest_score()
@@ -60,3 +69,7 @@ def add_new_high_score():
         playerAchievedAt=inserted_player_highscore["achievedAt"],
         message="New highscore from player saved successfully!"
     ), 201
+
+
+def validate_api_key(key):
+    return key == api_key
