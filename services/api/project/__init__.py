@@ -1,10 +1,12 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask_talisman import Talisman
 from pymongo import MongoClient
 from project.model.high_score import HighScore
 
 app = Flask(__name__)
 CORS(app)
+Talisman(app)
 app.config.from_object("project.config.Config")
 
 client = MongoClient(app.config["PYMONGO_DATABASE_URI"])

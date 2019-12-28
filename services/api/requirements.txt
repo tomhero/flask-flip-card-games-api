@@ -1,4 +1,5 @@
 Flask==1.1.1
 pymongo==3.9.0
 Flask-Cors==3.0.8
+flask-talisman==0.7.0
 gunicorn==20.0.4
