@@ -26,7 +26,7 @@ def index():
 
 @app.route("/api/v1/highscores/<client_api_key>")
 def get_all_score(client_api_key):
-    if (not validate_api_key(api_key)):
+    if (not validate_api_key(client_api_key)):
         return jsonify(status=False), 400
     all_score = high_score_model.get_high_scores()
     return jsonify(
@@ -37,7 +37,7 @@ def get_all_score(client_api_key):
 
 @app.route("/api/v1/highscore/<client_api_key>")
 def get_only_highest_score(client_api_key):
-    if (not validate_api_key(api_key)):
+    if (not validate_api_key(client_api_key)):
         return jsonify(status=False), 400
     score = high_score_model.get_the_highest_score()
     score["status"] = True
@@ -46,7 +46,7 @@ def get_only_highest_score(client_api_key):
 
 @app.route("/api/v1/highscore/<client_api_key>", methods=["POST"])
 def add_new_high_score(client_api_key):
-    if (not validate_api_key(api_key)):
+    if (not validate_api_key(client_api_key)):
         return jsonify(status=False), 400
     request_data = request.get_json(force=True)
 
